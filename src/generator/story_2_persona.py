@@ -72,14 +72,8 @@ async def read_chapter_file(filename):
         return content
 
 
-async def generate_persona(story_content):
-    prompt = SYSTEM_PROMPT_story_2_persona
-    response = await chat(prompt, story_content, MODEL)
-    return response
-
-
-async def get_persona(story_content):
-    xml_personas = await generate_persona(story_content)
+async def get_persona(story_content, system_prompt=SYSTEM_PROMPT_story_2_persona):
+    xml_personas = await chat(system_prompt, story_content, MODEL)
     if xml_personas:
         personas = await parse_personas(xml_personas)
         print("Generated Personas:", personas)
