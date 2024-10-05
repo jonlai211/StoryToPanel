@@ -1,9 +1,11 @@
 import asyncio
 import aiofiles
 import os
+import re
 import xml.etree.ElementTree as ET
 
 from dotenv import load_dotenv
+from typing import List
 from openai import AsyncOpenAI
 from src.utils.chat import chat
 
@@ -72,11 +74,20 @@ async def read_chapter_file(filename):
         return content
 
 
+def extract_cast(personas: List[str]) -> List[str]:
+    names = []
+    for persona in personas:
+        match = re.search(r'name=(.*?),', persona)
+        if match:
+            names.append(match.group(1).strip())
+    return names
+
+
 async def get_persona(story_content, system_prompt=SYSTEM_PROMPT_story_2_persona):
     xml_personas = await chat(system_prompt, story_content, MODEL)
     if xml_personas:
         personas = await parse_personas(xml_personas)
-        print("Generated Personas:", personas)
+        # print("Generated Personas:", personas)
         return personas
     else:
         print("No persona could be generated.")
