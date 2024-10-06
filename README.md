@@ -26,7 +26,7 @@ StoryToPanel/
 │   │   ├── download.py
 │   │   ├── style.py
 │   │   ├── logger.py  
-│   │   └── utils.py
+│   │   ├── utils.py
 │   │   └── replace.json
 │   └── data/  
 │       ├── image/  
