@@ -96,7 +96,7 @@ The styles are set in `src/utils/style.py` and can be modified as needed.
 ## Sample `results.json` Structure
 ```json
 {
-	"stort_content": "第一章 黑魔王崛起\n\n　　两个男人从虚空中突然现身，在月光映照的窄巷里相隔几米。他们一动不动地站立了...",
+	"story_content": "第一章 黑魔王崛起\n\n　　两个男人从虚空中突然现身，在月光映照的窄巷里相隔几米。他们一动不动地站立了...",
     "personas": [
         "Persona(name=斯内普, gender=男, age=中年, appearance=衣着黑色的长袍，像是某种古老的巫师长袍，显得他更加阴沉和神秘。 外观消瘦的面孔，鹰钩鼻，脸色苍白，长长的黑头发油腻腻的，垂在肩上。黑色的眼睛深邃而冷漠，嘴角总是带着一丝嘲讽的弧度。)",
         "Persona(name=亚克斯利, gender=男, age=中年, appearance=衣着黑色的长斗篷，里面是精致的巫师长袍，胸口别着一枚银色的胸针。 外观粗壮的身材，面色红润，头发稀疏，浓密的眉毛下藏着一双精明的眼睛。)",
