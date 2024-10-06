@@ -10,7 +10,8 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-logging.basicConfig(filename='../../mj.log', level=logging.INFO, format='%(asctime)s - %(message)s')
+# Obtain a logger for this module
+logger = logging.getLogger(__name__)
 
 API_KEY = os.getenv("MJ_KEY")
 HOST_NAME = os.getenv("MJ_HOSTNAME")
@@ -37,11 +38,10 @@ def imagine(prompt):
         response_json = json.loads(response_data)
         result = response_json.get("result")
         code = response_json.get("code")
-        print(f"Imagine Code: {code}, Imagine Result: {result}")
-        logging.info(f"Imagine Response: {response_data}")
+        logger.info(f"Imagine Code: {code}, Imagine Result: {result}")
         return result
     except Exception as e:
-        logging.error(f"Imagine function error: {e}")
+        logger.error(f"Imagine function error: {e}")
         return None
     finally:
         conn.close()
@@ -51,7 +51,6 @@ def fetch(task_id):
     path = f"/mj/task/{task_id}/fetch"
     payload = json.dumps({})
     conn = get_connection()
-    url = ""
     try:
         while True:
             time.sleep(5)
@@ -63,16 +62,15 @@ def fetch(task_id):
             status = json_data.get("status")
             progress = json_data.get("progress")
             buttons = json_data.get("buttons")
-            print(f"Fetch Progress: {progress}, {status}")
-            logging.info(f"Fetch response data: {data}")
+            logger.info(f"Fetch Progress: {progress}, Status: {status}")
             if status == "SUCCESS" and url:
-                print(f"Successful fetch with URL: {url}, Buttons info: {buttons}")
-                logging.info(f"Successful fetch with URL: {url}")
+                logger.info(f"Successful fetch with URL: {url}, Buttons info: {buttons}")
                 return url
             elif status == "FAILURE":
+                logger.error(f"Fetch failed for task ID {task_id} with data: {data}")
                 return ""
     except Exception as e:
-        logging.error(f"Fetch function error: {e}")
+        logger.error(f"Fetch function error: {e}")
     finally:
         conn.close()
 
@@ -92,14 +90,13 @@ def action(customId, taskId):
             response_json = json.loads(response_data)
             result = response_json.get("result")
             code = response_json.get("code")
-            print(f"Action Code: {code}, Action Result: {result}")
+            logger.info(f"Action Code: {code}, Action Result: {result}")
             return result
         else:
-            logging.error(f"HTTP Error: Status {response.status}, Response: {response_data}")
-            print(f"HTTP Error: Status {response.status}, Response: {response_data}")
+            logger.error(f"HTTP Error: Status {response.status}, Response: {response_data}")
             return None
     except Exception as e:
-        logging.error(f"Action function error: {e}")
+        logger.error(f"Action function error: {e}")
         return None
     finally:
         conn.close()
