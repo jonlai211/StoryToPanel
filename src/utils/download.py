@@ -35,7 +35,30 @@ def crop_image(image, region):
     return image.crop((left, top, right, bottom))
 
 
+def process_image(url, output_dir, idx):
+    print(f"Downloading image from {url}")
+    image = download_image(url)
+    if image is None:
+        print(f"Failed to download image. Skipping.")
+        return
+
+    for region in range(1, 5):
+        cropped = crop_image(image, region)
+        if cropped is not None:
+            image_filename = f"{idx}_{region}.jpg"
+            image_path = os.path.join(output_dir, image_filename)
+            try:
+                cropped.save(image_path)
+                print(f"Saved cropped image as {image_filename}")
+            except Exception as e:
+                print(f"Failed to save image {image_filename}: {e}")
+        else:
+            print(f"Failed to crop region {region}.")
+
+
 def main():
+    identifier = 2
+
     # Define paths
     script_dir = os.path.dirname(os.path.abspath(__file__))
     results_json_path = os.path.join(script_dir, '../data/output/results.json')
@@ -44,41 +67,45 @@ def main():
     # Create the output directory if it doesn't exist
     os.makedirs(output_dir, exist_ok=True)
 
-    # Load results.json
-    try:
-        with open(results_json_path, 'r', encoding='utf-8') as f:
-            data = json.load(f)
-    except Exception as e:
-        print(f"Failed to read {results_json_path}: {e}")
-        return
+    if identifier == 1:
+        # Load results.json
+        try:
+            with open(results_json_path, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+        except Exception as e:
+            print(f"Failed to read {results_json_path}: {e}")
+            return
 
-    image_urls = data.get('image_urls', [])
-    total_images = len(image_urls)
-    print(f"Total image URLs found: {total_images}")
+        image_urls = data.get('image_urls', [])
+        total_images = len(image_urls)
+        print(f"Total image URLs found: {total_images}")
 
-    for idx, url in enumerate(image_urls, start=1):
-        if url is None:
-            print(f"Play ID {idx}: No image URL found. Skipping.")
-            continue
+        for idx, url in enumerate(image_urls, start=1):
+            if url is None:
+                print(f"Play ID {idx}: No image URL found. Skipping.")
+                continue
 
-        print(f"Play ID {idx}: Downloading image from {url}")
-        image = download_image(url)
-        if image is None:
-            print(f"Play ID {idx}: Failed to download image. Skipping.")
-            continue
+            print(f"Play ID {idx}: Downloading image from {url}")
+            image = download_image(url)
+            if image is None:
+                print(f"Play ID {idx}: Failed to download image. Skipping.")
+                continue
 
-        for region in range(1, 5):
-            cropped = crop_image(image, region)
-            if cropped is not None:
-                image_filename = f"{idx}_{region}.jpg"
-                image_path = os.path.join(output_dir, image_filename)
-                try:
-                    cropped.save(image_path)
-                    print(f"Play ID {idx}: Saved cropped image as {image_filename}")
-                except Exception as e:
-                    print(f"Play ID {idx}: Failed to save image {image_filename}: {e}")
-            else:
-                print(f"Play ID {idx}: Failed to crop region {region}.")
+            for region in range(1, 5):
+                cropped = crop_image(image, region)
+                if cropped is not None:
+                    image_filename = f"{idx}_{region}.jpg"
+                    image_path = os.path.join(output_dir, image_filename)
+                    try:
+                        cropped.save(image_path)
+                        print(f"Play ID {idx}: Saved cropped image as {image_filename}")
+                    except Exception as e:
+                        print(f"Play ID {idx}: Failed to save image {image_filename}: {e}")
+                else:
+                    print(f"Play ID {idx}: Failed to crop region {region}.")
+    elif identifier == 2:
+        url = "https://aio-api-ssvip.aiearth.dev/mj/image/1728239303215FHF"
+        process_image(url, output_dir, 30)
 
     print("Image download and cropping completed.")
 

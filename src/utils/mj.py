@@ -106,7 +106,9 @@ if __name__ == "__main__":
     identifier = 1
 
     if identifier == 1:
-        prompt = "A cute cat"
+        prompt = """
+Medium shot, front view of a young female protagonist, elegantly dressed in light nightclothes with delicate patterned embroidery on the collar and cuffs. She is notably beautiful, her expression tinged with sadness and helplessness as she looks at luxurious clothes discarded on the ground by palace maids. Her long black hair is styled with a phoenix hairpin. The scene unfolds in an Imperial Garden featuring rock gardens, flowing water, and a profusion of flowers, with several pieces of gorgeous palace attire scattered around. Render this scene in the style of Chinese anime. --niji 6 --no text, watermarks, black bars, border, canvas, matte, frame --sref https://wawawriter-public.oss-cn-hangzhou.aliyuncs.com/dev/1721116784376066.png https://wawawriter-public.oss-cn-hangzhou.aliyuncs.com/dev/1721117219326289.png --sw 100 --ar 16:9 --v 6
+        """
         result = imagine(prompt)
         image_url = fetch(result)
         print(image_url)
