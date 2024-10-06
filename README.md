@@ -54,7 +54,7 @@ StoryToPanel/
 Here is an example of how to execute the entire workflow step-by-step.  
 #### **1. Import Story**  
 ```bash  
-python -m src.main --import_story --story_file src/data/processed/ch1.txt
+python -m src.main --import_story --story_file src/data/harry_potter.txt
 ```  
 #### **2. Generate Personas**  
 ```bash  
@@ -70,7 +70,7 @@ python -m src.main --generate_plays
 ```
 #### **5. Generate Images**  
 ```bash  
-python -m src.main --generate_images --style "国风动漫" --ratio "16:9" --limit 5
+python -m src.main --generate_images --style "Disney" --ratio "16:9" --limit 5
 ```
 #### **6. Run All Steps Together**  
 ```bash  

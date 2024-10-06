@@ -1,5 +1,5 @@
 STYLE_MAP = {
-    "迪士尼": {
+    "Disney": {
         "image_url": [
             "https://wawawriter-public.oss-cn-hangzhou.aliyuncs.com/production/fce53c593fe67bbff46a2e44540a50fb.png",
             "https://wawawriter-public.oss-cn-hangzhou.aliyuncs.com/dev/tmpa2thqhge.png",
@@ -9,7 +9,7 @@ STYLE_MAP = {
         "description": "Classic Disney's 1937 Animation Style. Two dimensional drawing --niji 6",
         "weight": "50",
     },
-    "女性漫画": {
+    "Manhwa": {
         "image_url": [
             "https://wawawriter-public.oss-cn-hangzhou.aliyuncs.com/production/48956ac592dd65d896f15c9be449a36a.PNG",
             "https://wawawriter-public.oss-cn-hangzhou.aliyuncs.com/production/1e34eb0e385ea1cbd1268b0651e428d0.PNG",
@@ -21,7 +21,7 @@ STYLE_MAP = {
         "description": "Josei anime style",
         "weight": "100",
     },
-    "宫崎骏": {
+    "Miyazaki": {
         "image_url": [
             "https://wawawriter-public.oss-cn-hangzhou.aliyuncs.com/production/cc8a4701e477a4f408a2180e95274d73.jpg",
             "https://wawawriter-public.oss-cn-hangzhou.aliyuncs.com/dev/tmpebn6cxjj.png",
@@ -40,7 +40,7 @@ STYLE_MAP = {
         "description": "illustration style of Chinese Style Anime. --niji 6",
         "weight": "100",
     },
-    "皮克斯": {
+    "Pixar": {
         "image_url": [
             "https://wawawriter-public.oss-cn-hangzhou.aliyuncs.com/dev/1721032369568324.png",
             "https://wawawriter-public.oss-cn-hangzhou.aliyuncs.com/dev/tmpwmj2hauq.png",
@@ -50,7 +50,7 @@ STYLE_MAP = {
         "weight": "50",
     },
     # 等待测试
-    "新海诚": {
+    "Shinkai": {
         "image_url": [
             "https://wawawriter-public.oss-cn-hangzhou.aliyuncs.com/dev/1721114844647679.png",
             "https://wawawriter-public.oss-cn-hangzhou.aliyuncs.com/dev/1721115287059683.png",
@@ -60,7 +60,7 @@ STYLE_MAP = {
         "description": "Japanese anime illustration style of Makoto Shinkai at CoMix Wave Films. Duller two dimensional drawing",
         "weight": "50",
     },
-    "日漫": {
+    "Japanese Anime": {
         "image_url": [
             "https://wawawriter-public.oss-cn-hangzhou.aliyuncs.com/production/45ce56bd31ce58a971206159bc7714ab.PNG",
             "https://wawawriter-public.oss-cn-hangzhou.aliyuncs.com/dev/1721111961106677.png",
@@ -70,7 +70,7 @@ STYLE_MAP = {
         "description": "Illustration style of Japanese Anime style. Dull and Pastel colour scheme. Two dimensional drawing. --niji 6",
         "weight": "50",
     },
-    "美漫": {
+    "American Comics": {
         "image_url": [
             "https://wawawriter-public.oss-cn-hangzhou.aliyuncs.com/production/876fd57c66e01f91a0cf3489669863f4.PNG",
             "https://wawawriter-public.oss-cn-hangzhou.aliyuncs.com/production/2ae9347e79aff6018c1337824b2b868c.PNG",
@@ -80,7 +80,7 @@ STYLE_MAP = {
         "description": "American comic style, oil tycoon, powerful lines, marvel, official art, imax. Two dimensional drawing",
         "weight": "100",
     },
-    "写实": {
+    "Photorealistic": {
         "image_url": [
             "https://wawawriter-public.oss-cn-hangzhou.aliyuncs.com/dev/1721123003903116.png",
             "https://wawawriter-public.oss-cn-hangzhou.aliyuncs.com/dev/1721123136199893.png",
@@ -92,7 +92,7 @@ STYLE_MAP = {
         "description": "Cinematic, Photoshoot, Shot on 25mm lens, Depth of Field, Tilt Blur, Shutter Speed 1/1000, F/22, White Balance, 32k, Super-Resolution, Pro Photo RGB, Half rear Lighting, Backlight, Dramatic Lighting, Incandescent, Soft Lighting, Volumetric, Conte-Jour, Global Illumination, Screen Space Global Illumination, Scattering, Shadows, Rough, Shimmering, Lumen Reflections, Screen Space Reflections, Diffraction Grading, Chromatic Aberration, GB Displacement, Scan Lines, Ambient Occlusion, Anti-Aliasing, FKAA, TXAA, RTX, SSAO, OpenGL-Shader’s, Post Processing, Post-Production, Cell Shading, Tone Mapping, CGI, VFX, SFX, insanely detailed and intricate, hyper maximalist, elegant, dynamic pose, photography, volumetric, ultra-detailed, intricate details, super detailed, ambient",
         "weight": "10",
     },
-    "恐怖惊悚": {
+    "Horror": {
         "image_url": [
             "https://wawawriter-public.oss-cn-hangzhou.aliyuncs.com/dev/1721119172092746.png",
             "https://wawawriter-public.oss-cn-hangzhou.aliyuncs.com/dev/1721119857128195.png",
