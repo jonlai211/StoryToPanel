@@ -58,17 +58,70 @@ def generated_prompts(personas_name):
         <!-- 根据需要继续添加play，直至完成n个 -->
     </plays>
     - 必须生成完整的n个play，并确保输出的内容仅包含plays相关的XML格式数据。
+    - 必须确保每个<play>标签中的所有子标签（<play_roles>，<play_roles_actions>，<play_environment>，<play_distance>，<play_direction>）都包含非空的文本内容。
     """
 
     return prompt_frags_2_plays
 
 
+def clean_xml_string(xml_str):
+    # Remove code block markers and language specifiers
+    xml_str = xml_str.strip()
+    if xml_str.startswith('```xml'):
+        xml_str = xml_str[len('```xml'):].strip()
+    elif xml_str.startswith('```'):
+        xml_str = xml_str[len('```'):].strip()
+    if xml_str.endswith('```'):
+        xml_str = xml_str[:-len('```')].strip()
+    return xml_str
+
+
+def parse_plays(plays_xml_str):
+    xml_str = clean_xml_string(plays_xml_str)
+    try:
+        root = ET.fromstring(xml_str)
+    except ET.ParseError as e:
+        print(f"XML parsing error: {e}")
+        return None
+
+    def get_element_text(elem):
+        if elem is not None and elem.text is not None:
+            return elem.text.strip()
+        else:
+            return ''
+
+    plays_list = []
+    for play_elem in root.findall('play'):
+        play_id = play_elem.get('id', '')
+        play_roles_elem = play_elem.find('play_roles')
+        play_roles_actions_elem = play_elem.find('play_roles_actions')
+        play_environment_elem = play_elem.find('play_environment')
+        play_distance_elem = play_elem.find('play_distance')
+        play_direction_elem = play_elem.find('play_direction')
+
+        play_dict = {
+            'id': play_id,
+            'play_roles': get_element_text(play_roles_elem),
+            'play_roles_actions': get_element_text(play_roles_actions_elem),
+            'play_environment': get_element_text(play_environment_elem),
+            'play_distance': get_element_text(play_distance_elem),
+            'play_direction': get_element_text(play_direction_elem)
+        }
+        plays_list.append(play_dict)
+    return plays_list
+
+
 async def get_plays(fragments, personas_name):
     system_prompt = generated_prompts(personas_name)
-    plays = await chat(system_prompt, fragments, MODEL)
-    if plays:
-        print("Generated Plays:", plays)
-        return plays
+    plays_xml_str = await chat(system_prompt, fragments, MODEL)
+    if plays_xml_str:
+        print("Generated Plays:", plays_xml_str)
+        plays_list = parse_plays(plays_xml_str)
+        if plays_list:
+            return plays_list
+        else:
+            print("Failed to parse plays into structured data.")
+            return None
     else:
         print("No plays could be generated.")
         return None
@@ -86,7 +139,6 @@ async def main():
     """
     personas_name = ["主人公", "堂弟", "陈婷婷"]
     await get_plays(fragments, personas_name)
-
 
 
 if __name__ == "__main__":

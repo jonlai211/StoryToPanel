@@ -75,6 +75,7 @@ async def read_chapter_file(filename):
 
 
 def process_buffer(buffer):
+    fragments = []
     new_buffer = buffer
     while '</frag>' in new_buffer:
         last_frag_end = new_buffer.find('</frag>') + len('</frag>')
@@ -87,13 +88,14 @@ def process_buffer(buffer):
             for frag in root.findall('frag'):
                 frag_id = frag.attrib.get('id')
                 text_content = (frag.text or "").strip()
+                fragments.append(f"Fragment {frag_id}: {text_content}")
                 print(f"Fragment {frag_id}: {text_content}")
         except ET.ParseError as e:
             print("Error parsing XML:", e)
             print("Faulty XML content:", cleaned_xml)
             continue
 
-    return new_buffer
+    return new_buffer, fragments
 
 
 async def generate_content(story_content, system_prompt):
@@ -115,10 +117,13 @@ async def generate_content(story_content, system_prompt):
             stream=True
         )
         buffer = ""
+        all_fragments = []
         async for chunk in response:
             if chunk.choices and chunk.choices[0].delta and chunk.choices[0].delta.content:
                 buffer += chunk.choices[0].delta.content
-                buffer = process_buffer(buffer)
+                buffer, fragments = process_buffer(buffer)
+                all_fragments.extend(fragments)
+        return all_fragments
     except Exception as e:
         print(f"An error occurred: {type(e).__name__}, {str(e)}")
         return None
@@ -126,7 +131,8 @@ async def generate_content(story_content, system_prompt):
 
 async def get_fragments(story_content):
     prompt_story_2_frags = gen_prompts(story_content)
-    await generate_content(story_content, prompt_story_2_frags)
+    fragments = await generate_content(story_content, prompt_story_2_frags)
+    return fragments
     # # Following codes for long content chapter separating
     # if outline:
     #     fragments = await generate_content(story_content, SYSTEM_PROMPT_prompt_story_to_frags + outline)

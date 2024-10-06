@@ -24,6 +24,8 @@ async def chat(prompt, content, model=MODEL):
         }
     ]
 
+    # print("Messages:", messages)
+
     try:
         response = await CLIENT.chat.completions.create(
             model=model,
