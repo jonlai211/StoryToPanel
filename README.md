@@ -50,6 +50,18 @@ StoryToPanel/
 	- `--limit`: Limit the number of plays to process for image generation.  
 - `--output_file`: Path to the output JSON file (default: `src/data/output/results.json`).  
 
+## Env Setup
+### `.env` File
+Create a `.env` file in the root directory with the following environment variables.  
+```plaintext
+TEXT_MODEL="model name"
+TEXT_MODEL_KEY="sk-..."
+TEXT_MODEL_URL="https://HOSTNAME"
+
+MJ_KEY="sk-..."
+MJ_HOSTNAME="HOSTNAME"
+```
+
 ## Example Workflow
 Here is an example of how to execute the entire workflow step-by-step.  
 #### **1. Import Story**  
