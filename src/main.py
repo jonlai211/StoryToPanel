@@ -58,8 +58,9 @@ async def main():
     style = "国风动漫"
     image_urls = []
 
-    # Process only the first 5 plays
-    for play in plays[:5]:
+    # # Process only the first 5 plays
+    # for play in plays[:5]:
+    for play in plays:
         image_url = get_play_image(personas, style, play, ratio)
         image_urls.append(image_url)
         logger.info(f"Generated Image URL for Play ID {play.get('id')}: {image_url}")
