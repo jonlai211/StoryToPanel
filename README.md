@@ -141,4 +141,4 @@ The styles are set in `src/utils/style.py` and can be modified as needed.
 - [ ] Add sample comics here
 
 ## License
-StoryToPanel is licensed under [MIT License]()
+StoryToPanel is licensed under [MIT License](LICENSE).
